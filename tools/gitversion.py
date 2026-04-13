@@ -14,6 +14,10 @@ def get_git_version() -> str:
     except (subprocess.CalledProcessError, FileNotFoundError):
         version = '0.0.0-0-g0000000'
 
+    # Untagged repositories can return only a short hash from `git describe --always`.
+    if '-' not in version:
+        return f'0.0.0.dev0+g{version}'
+
     ver, n_commits, git_hash = version.rsplit('-', 2)
     if ver.startswith('v'):
         ver = ver[1:]

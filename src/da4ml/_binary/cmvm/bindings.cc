@@ -48,7 +48,7 @@ nb::ndarray<nb::numpy, int8_t> int_arr_to_csd_numpy(const nb::ndarray<int32_t> &
     auto arr =
         xt::adapt(const_cast<int32_t *>(in.data()), in.size(), xt::no_ownership(), shape);
     xt::xarray<int32_t> arr_cpy(arr);
-    auto *result = new xt::xarray(_volatile_int_arr_to_csd(arr_cpy));
+    auto *result = new xt::xarray<int8_t>(_volatile_int_arr_to_csd(arr_cpy));
     auto *out_ptr = result->data();
     nb::capsule owner(result, [](void *p) noexcept {
         delete static_cast<xt::xarray<int8_t> *>(p);
@@ -71,9 +71,9 @@ nb::tuple csd_decompose_numpy(const nb::ndarray<float> &in, bool center) {
     xt::xarray<float> arr_cpy(arr);
     auto [csd, shift0, shift1] = csd_decompose(arr_cpy, center);
 
-    auto *csd_ptr = new xt::xarray(csd);
-    auto *shift0_ptr = new xt::xarray(shift0);
-    auto *shift1_ptr = new xt::xarray(shift1);
+    auto *csd_ptr = new xt::xarray<int8_t>(csd);
+    auto *shift0_ptr = new xt::xarray<int8_t>(shift0);
+    auto *shift1_ptr = new xt::xarray<int8_t>(shift1);
 
     nb::capsule csd_owner(csd_ptr, [](void *p) noexcept {
         delete static_cast<xt::xarray<std::int8_t> *>(p);

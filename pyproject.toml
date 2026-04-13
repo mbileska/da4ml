@@ -53,9 +53,6 @@ urls.repository = "https://github.com/calad0i/da4ml"
 scripts.da4ml = "da4ml._cli:main"
 entry-points."dais_tracer.plugins".da4ml = "da4ml.converter.example:ExampleDAISTracer"
 
-[tool.meson-python]
-limited-api = true
-
 [tool.ruff]
 target-version = "py310"
 

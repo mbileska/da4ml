@@ -21,7 +21,7 @@ file mkdir $output_dir
 file mkdir "${output_dir}/reports"
 
 # synth
-synth_design -top $top_module -mode out_of_context -global_retiming on \
+synth_design -top $top_module -mode out_of_context \
     -flatten_hierarchy full -resource_sharing auto -directive AreaOptimized_High
 
 create_clock -period $clock_period -name default [get_ports ap_clk]
